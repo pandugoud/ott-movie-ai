@@ -16,7 +16,6 @@ def inject_css():
         --line: rgba(255,255,255,0.08);
         --primary: #2a9d8f;
         --primary-hover: #23867a;
-        --primary-soft: #1f7f74;
         --accent: #e9c46a;
         --shadow: 0 16px 36px rgba(0,0,0,0.28);
         --shadow-2: 0 10px 24px rgba(0,0,0,0.22);
@@ -192,29 +191,20 @@ def inject_css():
         font-weight: 700;
     }
 
-    .watch-chip {
-        display:inline-block;
-        padding:0.36rem 0.7rem;
-        border-radius:999px;
-        background:rgba(255,255,255,0.05);
-        border:1px solid rgba(255,255,255,0.08);
-        font-size:0.78rem;
-        margin-right:0.4rem;
-        margin-bottom:0.4rem;
-        color:var(--text);
-    }
-
     .stButton > button {
         width: 100%;
+        min-height: 44px;
+        height: 44px;
         border-radius: 12px;
         border: 1px solid rgba(42,157,143,0.28);
         color: #ffffff;
-        font-weight: 800;
-        padding: 0.74rem 0.95rem;
+        font-weight: 700;
+        padding: 0.65rem 0.90rem;
         background-color: var(--primary);
         box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         transition: all 0.2s ease;
+        white-space: nowrap;
     }
 
     .stButton > button:hover {
@@ -254,6 +244,12 @@ def inject_css():
         .hero-title {
             font-size: 2.1rem;
         }
+
+        .stButton > button {
+            font-size: 0.82rem;
+            min-height: 42px;
+            height: 42px;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -269,7 +265,7 @@ def render_sidebar():
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.info("Simple rich colors updated.")
+        st.info("Final button style applied to all pages.")
 
 
 def topbar():
@@ -285,15 +281,3 @@ def section_header(title, sub=None):
     st.markdown(f'<div class="section-title">{title}</div>', unsafe_allow_html=True)
     if sub:
         st.markdown(f'<div class="section-sub">{sub}</div>', unsafe_allow_html=True)
-
-
-def movie_card(title, genre, overview):
-    st.markdown(f"""
-    <div class="grid-card">
-        <div class="movie-title">{title}</div>
-        <div class="movie-sub">{genre}</div>
-        <div style="color:#a7bac7; font-size:0.9rem; line-height:1.6;">
-            {overview}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
