@@ -64,7 +64,7 @@ for i, (_, row) in enumerate(results.iterrows()):
                 set_selected_movie(row.to_dict())
                 st.switch_page("pages/7_Trailer_Player.py")
 
-section_header("Navigate", "Other pages open cheyyandi")
+section_header("Navigate")
 n1, n2, n3 = st.columns(3, gap="small")
 with n1:
     if st.button("🔎 Explore", key="nav_explore", width="stretch"):
