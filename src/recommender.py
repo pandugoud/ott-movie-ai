@@ -7,10 +7,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 @st.cache_data
 def load_data():
     df = pd.read_csv("data/movies.csv")
-    df["title"] = df["title"].fillna("").astype(str)
-    df["overview"] = df["overview"].fillna("").astype(str)
-    df["genre"] = df["genre"].fillna("").astype(str)
-    df["image"] = df["image"].fillna("").astype(str)
+    for col in ["title", "overview", "genre", "image", "trailer"]:
+        if col not in df.columns:
+            df[col] = ""
+        df[col] = df[col].fillna("").astype(str)
+
     df["content"] = df["overview"] + " " + df["genre"]
     return df
 
@@ -35,14 +36,14 @@ def get_recommendations(title, top_n=6):
     scores = list(enumerate(similarity[idx]))
     scores = sorted(scores, key=lambda x: x[1], reverse=True)[1 : top_n + 1]
     movie_indices = [i[0] for i in scores]
-    result = df.iloc[movie_indices].copy()
-    return result
+    return df.iloc[movie_indices].copy()
 
 
 def search_movies(query):
     df = load_data()
     if not query:
         return df
+
     query = str(query).strip()
     filtered = df[
         df["title"].str.contains(query, case=False, na=False)
