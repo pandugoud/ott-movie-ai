@@ -64,7 +64,7 @@ with tab1:
                     st.switch_page("pages/7_Trailer_Player.py")
 
 with tab2:
-    section_header("Movie Similarity", "Favorite movie batti similar titles suggest chesthundi")
+    section_header("Movie Similarity")
 
     t1, t2 = st.columns(2, gap="large")
     with t1:
