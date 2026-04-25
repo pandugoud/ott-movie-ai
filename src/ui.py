@@ -7,13 +7,6 @@ def inject_css():
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
     :root {
-        --bg-1: #04060b;
-        --bg-2: #09111d;
-        --bg-3: #0d1728;
-        --card: rgba(12, 18, 31, 0.92);
-        --card-2: rgba(10, 15, 27, 0.96);
-        --soft: rgba(255,255,255,0.05);
-        --soft-2: rgba(255,255,255,0.08);
         --text: #f5f7ff;
         --muted: #9aa8c3;
         --line: rgba(255,255,255,0.08);
@@ -63,10 +56,6 @@ def inject_css():
         padding-bottom: 2rem;
     }
 
-    h1, h2, h3, h4, h5, p, span, label, div {
-        color: var(--text);
-    }
-
     .topbar {
         display:flex;
         justify-content:space-between;
@@ -87,6 +76,11 @@ def inject_css():
         background-clip: text;
     }
 
+    .compact-note {
+        color: var(--muted);
+        font-size: 0.92rem;
+    }
+
     .hero-v2 {
         border-radius: 30px;
         padding: 1.35rem;
@@ -94,14 +88,7 @@ def inject_css():
         border: 1px solid var(--line);
         box-shadow: var(--shadow);
         margin-bottom: 1.2rem;
-    }
-
-    .hero-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         height: 100%;
-        padding: 0.4rem 0.3rem;
     }
 
     .hero-pills {
@@ -118,16 +105,14 @@ def inject_css():
         border: 1px solid rgba(255,255,255,0.10);
         font-size: 0.74rem;
         font-weight: 800;
-        letter-spacing: 0.02em;
     }
 
     .hero-title {
-        font-size: 3.55rem;
+        font-size: 3.3rem;
         line-height: 0.98;
         font-weight: 900;
         letter-spacing: -0.06em;
         margin-bottom: 0.75rem;
-        max-width: 650px;
     }
 
     .hero-title .accent {
@@ -141,7 +126,6 @@ def inject_css():
         font-size: 1rem;
         line-height: 1.8;
         color: var(--muted) !important;
-        max-width: 640px;
         margin-bottom: 1rem;
     }
 
@@ -167,10 +151,6 @@ def inject_css():
         padding: 0.85rem;
         box-shadow: var(--shadow-2);
         height: 100%;
-    }
-
-    .hero-poster-box img {
-        border-radius: 20px !important;
     }
 
     .section-title {
@@ -202,11 +182,7 @@ def inject_css():
         padding: 0.55rem;
         box-shadow: var(--shadow-2);
         overflow: hidden;
-        margin-bottom: 1rem;
-    }
-
-    .grid-card img {
-        border-radius: 16px !important;
+        margin-bottom: 0.8rem;
     }
 
     .movie-title {
@@ -228,9 +204,15 @@ def inject_css():
         font-weight: 700;
     }
 
-    .compact-note {
-        color: var(--muted) !important;
-        font-size: 0.9rem;
+    .watch-chip {
+        display:inline-block;
+        padding:0.36rem 0.7rem;
+        border-radius:999px;
+        background:rgba(255,255,255,0.06);
+        border:1px solid rgba(255,255,255,0.08);
+        font-size:0.78rem;
+        margin-right:0.4rem;
+        margin-bottom:0.4rem;
     }
 
     .stButton > button {
@@ -245,19 +227,6 @@ def inject_css():
         font-size: 0.9rem;
     }
 
-    .stButton > button:hover {
-        border-color: rgba(255,255,255,0.16);
-    }
-
-    .stTextInput input,
-    .stSelectbox div[data-baseweb="select"] > div,
-    .stTextArea textarea {
-        background: rgba(255,255,255,0.06) !important;
-        color: white !important;
-        border: 1px solid rgba(255,255,255,0.10) !important;
-        border-radius: 14px !important;
-    }
-
     div[data-testid="stDialog"] div[role="dialog"] {
         border-radius: 28px !important;
         background: linear-gradient(180deg, rgba(5,8,15,0.98), rgba(10,16,28,0.98)) !important;
@@ -265,28 +234,15 @@ def inject_css():
         box-shadow: 0 30px 70px rgba(0,0,0,0.45) !important;
     }
 
-    .dialog-anchor { display:none; }
-
-    .watch-chip {
-        display:inline-block;
-        padding:0.36rem 0.7rem;
-        border-radius:999px;
-        background:rgba(255,255,255,0.06);
-        border:1px solid rgba(255,255,255,0.08);
-        font-size:0.78rem;
-        margin-right:0.4rem;
-        margin-bottom:0.4rem;
-    }
-
     @media (max-width: 980px) {
         .hero-title {
-            font-size: 2.7rem;
+            font-size: 2.6rem;
         }
     }
 
     @media (max-width: 640px) {
         .hero-title {
-            font-size: 2.15rem;
+            font-size: 2.1rem;
         }
         .hero-v2 {
             padding: 1rem;
@@ -307,7 +263,7 @@ def render_sidebar():
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.info("Home v2 lo compact hero, clean poster rail, and less cluttered cards untayi.")
+        st.info("Home v2 lo compact hero, clean poster cards, and popup trailer untayi.")
 
 
 def topbar():
