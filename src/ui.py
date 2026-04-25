@@ -52,7 +52,7 @@ def inject_css():
 
     .block-container {
         max-width: 1380px;
-        padding-top: 1rem;
+        padding-top: 2.2rem;
         padding-bottom: 2rem;
     }
 
@@ -60,7 +60,7 @@ def inject_css():
         display:flex;
         justify-content:space-between;
         align-items:center;
-        padding: 0.35rem 0 1rem 0;
+        padding: 0.9rem 0 1.2rem 0;
     }
 
     .brand-logo {
@@ -247,6 +247,16 @@ def inject_css():
         .hero-v2 {
             padding: 1rem;
             border-radius: 24px;
+        }
+        .topbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.35rem;
+            padding: 0.7rem 0 1rem 0;
+        }
+        .block-container {
+            padding-top: 1.6rem;
+            padding-bottom: 1.5rem;
         }
     }
     </style>
