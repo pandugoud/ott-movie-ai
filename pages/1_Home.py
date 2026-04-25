@@ -13,59 +13,21 @@ topbar()
 df = load_data()
 featured = df.iloc[st.session_state.featured_index % len(df)]
 
-@st.dialog("🎬 Trailer Preview", width="large")
-def show_trailer_popup(movie):
-    left, right = st.columns([1.45, 0.95], gap="large")
-
-    with left:
-        st.video(movie["trailer"], autoplay=True, muted=True)
-
-    with right:
-        st.image(movie["image"], width="stretch")
-        st.markdown(f"### {movie['title']}")
-        st.markdown(f"**{movie['year']} • {movie['duration']} • {movie['language']} • ⭐ {movie['rating']}**")
-        st.write(movie["overview"])
-
-        st.markdown(
-            f"""
-            <span class="watch-chip">{movie['genre']}</span>
-            <span class="watch-chip">Featured Pick</span>
-            <span class="watch-chip">Popup Trailer</span>
-            """,
-            unsafe_allow_html=True
-        )
-
-        if st.button("❤️ Add to Watchlist", key=f"dlg_watch_{movie['title']}"):
-            if add_to_watchlist(movie["title"]):
-                st.success(f"{movie['title']} added to watchlist")
-            else:
-                st.info("Already in watchlist")
-
-        if st.button("📺 Open Full Detail Page", key=f"dlg_open_{movie['title']}"):
-            set_selected_movie(movie.to_dict())
-            st.switch_page("pages/7_Trailer_Player.py")
-
-
 hero_left, hero_right = st.columns([1.15, 0.85], gap="large")
 
 with hero_left:
-    st.markdown("""
+    st.markdown(f"""
     <div class="hero-v2">
         <div class="hero-pills">
             <span class="hero-pill">FEATURED TODAY</span>
-            <span class="hero-pill">POPUP TRAILER</span>
-            <span class="hero-pill">FULL DETAIL PAGE</span>
-            <span class="hero-pill">AI RECOMMENDATIONS</span>
+            <span class="hero-pill">MOOD AI</span>
+            <span class="hero-pill">SMART DISCOVERY</span>
         </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown(f"""
         <div class="hero-title">
             Watch <span class="accent">{featured['title']}</span> in a premium OTT-style experience
         </div>
         <div class="hero-desc">
-            Explore trailers in a large cinematic popup, save movies to your watchlist,
-            and jump into a full OTT detail page with recommendations.
+            Explore featured movies, open full trailer pages, and discover recommendations by vibe.
         </div>
         <div class="hero-meta">
             <span class="meta-chip">⭐ {featured['rating']}</span>
@@ -74,16 +36,20 @@ with hero_left:
             <span class="meta-chip">{featured['duration']}</span>
             <span class="meta-chip">{featured['language']}</span>
         </div>
+    </div>
     """, unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns([1.1, 1.15, 0.8, 0.8])
     with c1:
-        if st.button("▶ Play Trailer", key="hero_popup"):
-            show_trailer_popup(featured)
-    with c2:
-        if st.button("📺 Full Detail Page", key="hero_page"):
+        if st.button("📺 Open Detail Page", key="hero_page"):
             set_selected_movie(featured.to_dict())
             st.switch_page("pages/7_Trailer_Player.py")
+    with c2:
+        if st.button("❤️ Add Watchlist", key="hero_watch"):
+            if add_to_watchlist(featured["title"]):
+                st.success(f"{featured['title']} added")
+            else:
+                st.info("Already added")
     with c3:
         if st.button("⬅ Prev", key="hero_prev"):
             prev_feature(len(df))
@@ -92,8 +58,6 @@ with hero_left:
         if st.button("Next ➜", key="hero_next"):
             next_feature(len(df))
             st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 with hero_right:
     st.markdown('<div class="hero-v2"><div class="hero-poster-box">', unsafe_allow_html=True)
@@ -105,35 +69,39 @@ with hero_right:
     """, unsafe_allow_html=True)
     st.markdown("</div></div>", unsafe_allow_html=True)
 
-section_header("Trending Now", "Clean poster rail with quick popup actions")
-rail = st.columns(5, gap="medium")
+section_header("Trending Now", "Quick picks")
+cols = st.columns(5, gap="medium")
 
 for i, (_, row) in enumerate(df.head(5).iterrows()):
-    with rail[i]:
+    with cols[i]:
         st.image(row["image"], width="stretch")
-        if st.button(f"▶ {row['title']}", key=f"trend_{i}"):
-            show_trailer_popup(row)
+        if st.button(f"Open {row['title']}", key=f"home_open_{i}"):
+            set_selected_movie(row.to_dict())
+            st.switch_page("pages/7_Trailer_Player.py")
 
-section_header("Top Picks", "Cleaner cards with compact actions")
+section_header("Top Picks", "Premium cards with quick actions")
 cards = st.columns(4, gap="large")
 
 for i in range(min(8, len(df))):
     row = df.iloc[i]
-
     with cards[i % 4]:
         st.markdown('<div class="grid-card">', unsafe_allow_html=True)
         st.image(row["image"], width="stretch")
         st.markdown(f"""
             <div class="movie-title">{row['title']}</div>
             <div class="movie-sub">{row['genre']} • {row['year']} • <span class="mini-stat">⭐ {row['rating']}</span></div>
+            <div style="color:#9aa8c3;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
         """, unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-        a1, a2 = st.columns(2, gap="small")
+        a1, a2 = st.columns(2)
         with a1:
-            if st.button("▶ Play", key=f"play_{i}"):
-                show_trailer_popup(row)
+            if st.button("❤️ Watchlist", key=f"home_watch_{i}"):
+                if add_to_watchlist(row["title"]):
+                    st.success("Added")
+                else:
+                    st.info("Already added")
         with a2:
-            if st.button("📺 Details", key=f"details_{i}"):
+            if st.button("📺 Open", key=f"home_detail_{i}"):
                 set_selected_movie(row.to_dict())
                 st.switch_page("pages/7_Trailer_Player.py")
