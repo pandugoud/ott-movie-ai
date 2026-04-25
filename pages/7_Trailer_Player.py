@@ -23,7 +23,7 @@ section_header("Now Streaming", "Full OTT-style detail layout with trailer, meta
 left, right = st.columns([1.55, 0.9], gap="large")
 
 with left:
-    st.video(movie["trailer"], autoplay=True, muted=True)
+    st.video(movie["trailer"])
 
 with right:
     st.image(movie["image"], width="stretch")
