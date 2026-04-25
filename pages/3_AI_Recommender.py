@@ -22,16 +22,13 @@ st.markdown("""
     <div class="hero-title">
         Pick your <span class="accent">mood</span> and discover your next movie
     </div>
-    <div class="hero-desc">
-        Mee mood, vibe, or favorite movie batti instant recommendations pondandi.
     </div>
-</div>
 """, unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(["😊 Mood Based", "🎬 Title Based"])
 
 with tab1:
-    section_header("Mood Matcher", "Mee mood select chesthe matching movies chupisthundi")
+    section_header("Mood Matcher")
 
     col1, col2 = st.columns(2, gap="large")
     with col1:
