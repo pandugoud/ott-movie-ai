@@ -166,15 +166,6 @@ def inject_css():
         font-size: 0.92rem;
     }
 
-    .rail-card {
-        background: linear-gradient(180deg, rgba(12,18,31,0.94), rgba(8,12,22,0.96));
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 24px;
-        padding: 1rem;
-        margin-bottom: 1.1rem;
-        box-shadow: var(--shadow-2);
-    }
-
     .grid-card {
         background: linear-gradient(180deg, rgba(13,18,31,0.96), rgba(8,12,22,0.96));
         border: 1px solid rgba(255,255,255,0.07);
@@ -227,27 +218,7 @@ def inject_css():
         font-size: 0.9rem;
     }
 
-    div[data-testid="stDialog"] div[role="dialog"] {
-        border-radius: 28px !important;
-        background: linear-gradient(180deg, rgba(5,8,15,0.98), rgba(10,16,28,0.98)) !important;
-        border: 1px solid rgba(255,255,255,0.07) !important;
-        box-shadow: 0 30px 70px rgba(0,0,0,0.45) !important;
-    }
-
-    @media (max-width: 980px) {
-        .hero-title {
-            font-size: 2.6rem;
-        }
-    }
-
     @media (max-width: 640px) {
-        .hero-title {
-            font-size: 2.1rem;
-        }
-        .hero-v2 {
-            padding: 1rem;
-            border-radius: 24px;
-        }
         .topbar {
             flex-direction: column;
             align-items: flex-start;
@@ -257,6 +228,9 @@ def inject_css():
         .block-container {
             padding-top: 1.6rem;
             padding-bottom: 1.5rem;
+        }
+        .hero-title {
+            font-size: 2.1rem;
         }
     }
     </style>
@@ -269,11 +243,11 @@ def render_sidebar():
         <div style="padding:0.35rem 0 0.9rem 0;">
             <div style="font-size:1.2rem;font-weight:900;">🎬 OTT Stream Pro Max</div>
             <div style="color:#98a8c7;margin-top:0.35rem;">
-                Premium movie discovery UI with cinematic trailer experience
+                Premium movie discovery UI with mood-based recommendations
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.info("Home v2 lo compact hero, clean poster cards, and popup trailer untayi.")
+        st.info("Home, Explore, AI Recommender, Watchlist and Trailer page ready.")
 
 
 def topbar():
