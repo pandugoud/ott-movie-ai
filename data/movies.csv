@@ -1,11 +1,11 @@
-title,overview,genre,image,trailer
-Inception,Dream world thief,Sci-Fi,https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg,https://www.youtube.com/watch?v=YoHD9XEInc0
-Interstellar,Space travel and time,Sci-Fi,https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg,https://www.youtube.com/watch?v=zSWdZVtXT7E
-Avatar,Alien world exploration,Sci-Fi,https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg,https://www.youtube.com/watch?v=5PSNL1qE6VY
-Avengers,Superhero team saves earth,Action,https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg,https://www.youtube.com/watch?v=eOrNdBpGMv8
-Dark Knight,Batman vs Joker,Action,https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg,https://www.youtube.com/watch?v=EXeTwQWrcwY
-Titanic,Love story on ship,Romance,https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg,https://www.youtube.com/watch?v=kVrqfYjkTdQ
-The Matrix,Virtual reality rebellion,Sci-Fi,https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg,https://www.youtube.com/watch?v=vKQi3bBA1y8
-Joker,Origin of a troubled comedian,Drama,https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg,https://www.youtube.com/watch?v=zAGVQLHvwOY
-Bahubali,A warrior rises to save his kingdom,Action,https://image.tmdb.org/t/p/w500/9BAjt8nSSms62uOVYn1t3C3dVto.jpg,https://www.youtube.com/watch?v=sOEg_YZQsTI
-RRR,Two revolutionaries fight empire,Action,https://image.tmdb.org/t/p/w500/nEufeZlyAOLqO2brrs0yeF1lgXO.jpg,https://www.youtube.com/watch?v=NgBoMJy386M
+title,overview,genre,image,trailer,year,duration,language,rating
+Inception,Dream world thief enters layered subconscious worlds,Sci-Fi,https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg,https://www.youtube.com/watch?v=YoHD9XEInc0,2010,2h 28m,English,8.8
+Interstellar,A team travels through space and time to save humanity,Sci-Fi,https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg,https://www.youtube.com/watch?v=zSWdZVtXT7E,2014,2h 49m,English,8.7
+Avatar,A marine enters an alien world and fights for its people,Sci-Fi,https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg,https://www.youtube.com/watch?v=5PSNL1qE6VY,2009,2h 42m,English,7.9
+Avengers,Earth's mightiest heroes unite to stop global destruction,Action,https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg,https://www.youtube.com/watch?v=eOrNdBpGMv8,2012,2h 23m,English,8.0
+Dark Knight,Batman faces Joker in Gotham's darkest battle,Action,https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg,https://www.youtube.com/watch?v=EXeTwQWrcwY,2008,2h 32m,English,9.0
+Titanic,A tragic love story unfolds aboard a doomed ship,Romance,https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg,https://www.youtube.com/watch?v=kVrqfYjkTdQ,1997,3h 14m,English,7.9
+The Matrix,A hacker discovers reality is a simulated prison,Sci-Fi,https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg,https://www.youtube.com/watch?v=vKQi3bBA1y8,1999,2h 16m,English,8.7
+Joker,A failed comedian descends into chaos and violence,Drama,https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg,https://www.youtube.com/watch?v=zAGVQLHvwOY,2019,2h 2m,English,8.4
+Bahubali,A warrior prince rises to reclaim his kingdom,Action,https://image.tmdb.org/t/p/w500/9BAjt8nSSms62uOVYn1t3C3dVto.jpg,https://www.youtube.com/watch?v=sOEg_YZQsTI,2015,2h 39m,Telugu,8.0
+RRR,Two revolutionaries ignite a fight against empire,Action,https://image.tmdb.org/t/p/w500/nEufeZlyAOLqO2brrs0yeF1lgXO.jpg,https://www.youtube.com/watch?v=NgBoMJy386M,2022,3h 7m,Telugu,7.8
