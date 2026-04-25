@@ -86,6 +86,11 @@ def get_movie_by_title(title):
     return matched.iloc[0].to_dict()
 
 
+def get_genre_counts():
+    df = load_data()
+    return df["genre"].value_counts()
+
+
 def get_mood_mapping():
     return {
         "😊 Happy": ["Comedy", "Romance", "Animation", "Fantasy", "Music", "Family"],
