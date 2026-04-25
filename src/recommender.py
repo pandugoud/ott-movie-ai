@@ -70,7 +70,6 @@ def get_recommendations(title, top_n=6):
     idx = df.index[df["title"] == title][0]
     scores = list(enumerate(similarity[idx]))
     scores = sorted(scores, key=lambda x: x[1], reverse=True)
-
     filtered = [x for x in scores if x[0] != idx][:top_n]
     indices = [x[0] for x in filtered]
 
@@ -85,11 +84,6 @@ def get_movie_by_title(title):
         return None
 
     return matched.iloc[0].to_dict()
-
-
-def get_genre_counts():
-    df = load_data()
-    return df["genre"].value_counts()
 
 
 def get_mood_mapping():
