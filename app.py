@@ -12,15 +12,13 @@ st.set_page_config(
 initialize_session()
 inject_css()
 render_sidebar()
-
 topbar()
 
 st.markdown("""
-<div class="glass-card">
+<div style="padding:1rem;border:1px solid rgba(255,255,255,0.08);border-radius:20px;background:rgba(255,255,255,0.03);">
     <h2 style="margin-top:0;">Welcome</h2>
-    <p class="mini-note">
-        Home page lo featured cinematic banner, large popup trailer, and full OTT detail page untayi.
-        Sidebar nundi Home open chesi premium experience chudandi.
+    <p style="color:#9aa8c3;">
+        Sidebar nundi Home page open cheyyandi. Akkada premium hero, trailer popup, and full OTT detail page untayi.
     </p>
 </div>
 """, unsafe_allow_html=True)
