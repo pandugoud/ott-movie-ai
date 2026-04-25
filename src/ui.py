@@ -179,7 +179,7 @@ def inject_css():
         background: linear-gradient(180deg, rgba(13,18,31,0.96), rgba(8,12,22,0.96));
         border: 1px solid rgba(255,255,255,0.07);
         border-radius: 22px;
-        padding: 0.55rem;
+        padding: 0.9rem;
         box-shadow: var(--shadow-2);
         overflow: hidden;
         margin-bottom: 0.8rem;
@@ -188,7 +188,7 @@ def inject_css():
     .movie-title {
         font-size: 0.98rem;
         font-weight: 800;
-        margin-top: 0.65rem;
+        margin-top: 0.1rem;
         line-height: 1.25;
     }
 
@@ -279,3 +279,15 @@ def section_header(title, sub=None):
     st.markdown(f'<div class="section-title">{title}</div>', unsafe_allow_html=True)
     if sub:
         st.markdown(f'<div class="section-sub">{sub}</div>', unsafe_allow_html=True)
+
+
+def movie_card(title, genre, overview):
+    st.markdown(f"""
+    <div class="grid-card">
+        <div class="movie-title">{title}</div>
+        <div class="movie-sub">{genre}</div>
+        <div style="color:#9aa8c3; font-size:0.9rem; line-height:1.6;">
+            {overview}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
