@@ -12,12 +12,23 @@ def load_data():
         "title", "overview", "genre", "image", "trailer",
         "year", "duration", "language", "rating"
     ]
+
     for col in required_cols:
         if col not in df.columns:
             df[col] = ""
-        df[col] = df[col].fillna("").astype(str)
 
-    df["content"] = df["overview"] + " " + df["genre"] + " " + df["language"]
+    df = df.fillna("")
+
+    for col in required_cols:
+        df[col] = df[col].astype(str)
+
+    df["content"] = (
+        df["title"] + " " +
+        df["overview"] + " " +
+        df["genre"] + " " +
+        df["language"]
+    )
+
     return df
 
 
@@ -30,6 +41,25 @@ def build_similarity():
     return similarity
 
 
+def search_movies(query):
+    df = load_data()
+
+    if not query or str(query).strip() == "":
+        return df
+
+    q = str(query).strip()
+
+    results = df[
+        df["title"].str.contains(q, case=False, na=False) |
+        df["genre"].str.contains(q, case=False, na=False) |
+        df["overview"].str.contains(q, case=False, na=False) |
+        df["language"].str.contains(q, case=False, na=False) |
+        df["year"].str.contains(q, case=False, na=False)
+    ].copy()
+
+    return results
+
+
 def get_recommendations(title, top_n=6):
     df = load_data()
     similarity = build_similarity()
@@ -39,6 +69,24 @@ def get_recommendations(title, top_n=6):
 
     idx = df.index[df["title"] == title][0]
     scores = list(enumerate(similarity[idx]))
-    scores = sorted(scores, key=lambda x: x[1], reverse=True)[1:top_n + 1]
-    indices = [i[0] for i in scores]
+    scores = sorted(scores, key=lambda x: x[1], reverse=True)
+
+    filtered = [x for x in scores if x[0] != idx][:top_n]
+    indices = [x[0] for x in filtered]
+
     return df.iloc[indices].copy()
+
+
+def get_movie_by_title(title):
+    df = load_data()
+
+    matched = df[df["title"] == title]
+    if matched.empty:
+        return None
+
+    return matched.iloc[0].to_dict()
+
+
+def get_genre_counts():
+    df = load_data()
+    return df["genre"].value_counts()
