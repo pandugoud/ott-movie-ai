@@ -3,26 +3,55 @@ import streamlit as st
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("data/movies.csv")
-    df["overview"] = df["overview"].fillna("")
-    df["genre"] = df["genre"].fillna("")
+    df["title"] = df["title"].fillna("").astype(str)
+    df["overview"] = df["overview"].fillna("").astype(str)
+    df["genre"] = df["genre"].fillna("").astype(str)
+    df["image"] = df["image"].fillna("").astype(str)
     df["content"] = df["overview"] + " " + df["genre"]
     return df
 
-def get_recommendations(title):
-    df = load_data()
 
+@st.cache_data
+def build_similarity():
+    df = load_data()
     tfidf = TfidfVectorizer(stop_words="english")
     matrix = tfidf.fit_transform(df["content"])
     similarity = cosine_similarity(matrix)
+    return similarity
+
+
+def get_recommendations(title, top_n=6):
+    df = load_data()
+    similarity = build_similarity()
 
     if title not in df["title"].values:
-        return []
+        return pd.DataFrame()
 
-    idx = df[df["title"] == title].index[0]
+    idx = df.index[df["title"] == title][0]
+    scores = list(enumerate(similarity[idx]))
+    scores = sorted(scores, key=lambda x: x[1], reverse=True)[1 : top_n + 1]
+    movie_indices = [i[0] for i in scores]
+    result = df.iloc[movie_indices].copy()
+    return result
 
-    scores = sorted(list(enumerate(similarity[idx])), key=lambda x: x[1], reverse=True)
 
-    return [df.iloc[i[0]] for i in scores[1:6]]
+def search_movies(query):
+    df = load_data()
+    if not query:
+        return df
+    query = str(query).strip()
+    filtered = df[
+        df["title"].str.contains(query, case=False, na=False)
+        | df["genre"].str.contains(query, case=False, na=False)
+        | df["overview"].str.contains(query, case=False, na=False)
+    ]
+    return filtered
+
+
+def get_genre_counts():
+    df = load_data()
+    return df["genre"].value_counts()
