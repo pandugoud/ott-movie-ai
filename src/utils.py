@@ -4,8 +4,8 @@ import streamlit as st
 def initialize_session():
     defaults = {
         "watchlist": [],
-        "playing_movie": None,
-        "clicked_movie_title": None
+        "selected_movie": None,
+        "featured_index": 0
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -26,13 +26,13 @@ def remove_from_watchlist(movie_name):
     return False
 
 
-def play_movie(title):
-    st.session_state.playing_movie = title
+def set_selected_movie(movie_dict):
+    st.session_state.selected_movie = movie_dict
 
 
-def stop_movie():
-    st.session_state.playing_movie = None
+def next_feature(total):
+    st.session_state.featured_index = (st.session_state.featured_index + 1) % total
 
 
-def is_playing(title):
-    return st.session_state.playing_movie == title
+def prev_feature(total):
+    st.session_state.featured_index = (st.session_state.featured_index - 1) % total
