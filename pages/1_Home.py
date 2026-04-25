@@ -1,21 +1,40 @@
 import streamlit as st
-import pandas as pd
+from src.recommender import load_data
+from src.ui import inject_css, render_sidebar, hero_section, section_header, movie_card
+from src.utils import initialize_session
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Home | OTT Stream Pro Max", page_icon="🏠", layout="wide")
 
-df = pd.read_csv("data/movies.csv")
+initialize_session()
+inject_css()
+render_sidebar()
 
-st.markdown("""
-<div style="background:#000;padding:40px;border-radius:10px;">
-<h1 style="color:white;">Unlimited Movies & AI Recommendations</h1>
-</div>
-""", unsafe_allow_html=True)
+df = load_data()
 
-st.subheader("🔥 Trending Now")
+hero_section()
+section_header("🔥 Trending Now")
 
 cols = st.columns(4)
+for i in range(min(8, len(df))):
+    row = df.iloc[i]
+    with cols[i % 4]:
+        st.image(row["image"], use_container_width=True)
+        movie_card(row["title"], row["genre"], row["overview"])
 
-for i in range(min(4, len(df))):
-    with cols[i]:
-        st.image(df.iloc[i]["image"], use_container_width=True)
-        st.caption(df.iloc[i]["title"])
+section_header("⭐ Spotlight Pick")
+spot = df.iloc[0]
+
+c1, c2 = st.columns([1, 1.35])
+with c1:
+    st.image(spot["image"], use_container_width=True)
+with c2:
+    st.markdown(f"""
+    <div class="glass-card">
+        <h2 style="margin-top:0;">{spot["title"]}</h2>
+        <p class="small-note"><b>Genre:</b> {spot["genre"]}</p>
+        <p>{spot["overview"]}</p>
+        <p class="small-note">
+            Handpicked as a featured title for the home screen showcase.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
