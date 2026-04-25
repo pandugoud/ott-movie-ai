@@ -1,12 +1,15 @@
-import requests
 import streamlit as st
 
 
 def initialize_session():
-    if "watchlist" not in st.session_state:
-        st.session_state.watchlist = []
-    if "theme_label" not in st.session_state:
-        st.session_state.theme_label = "Dark"
+    defaults = {
+        "watchlist": [],
+        "playing_movie": None,
+        "clicked_movie_title": None
+    }
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
 
 def add_to_watchlist(movie_name):
@@ -23,17 +26,13 @@ def remove_from_watchlist(movie_name):
     return False
 
 
-def get_trailer(movie):
-    api_key = "YOUR_YOUTUBE_API_KEY"
-    url = (
-        "https://www.googleapis.com/youtube/v3/search"
-        f"?part=snippet&q={movie}+official+trailer&key={api_key}&maxResults=1"
-    )
+def play_movie(title):
+    st.session_state.playing_movie = title
 
-    try:
-        response = requests.get(url, timeout=10)
-        data = response.json()
-        video_id = data["items"][0]["id"]["videoId"]
-        return f"https://www.youtube.com/watch?v={video_id}"
-    except Exception:
-        return None
+
+def stop_movie():
+    st.session_state.playing_movie = None
+
+
+def is_playing(title):
+    return st.session_state.playing_movie == title
