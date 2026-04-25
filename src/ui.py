@@ -7,47 +7,44 @@ def inject_css():
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
     :root {
-        --text: #f5f7ff;
-        --muted: #9aa8c3;
+        --bg: #08131f;
+        --bg-soft: #10202f;
+        --card: #12263a;
+        --card-2: #0f2234;
+        --text: #edf6f9;
+        --muted: #a7bac7;
         --line: rgba(255,255,255,0.08);
-        --red: #e50914;
-        --blue: #00a8e1;
-        --cyan: #14d9ff;
-        --gold: #ffd166;
-        --brand: linear-gradient(90deg, #e50914 0%, #00a8e1 50%, #14d9ff 100%);
-        --hero-bg:
-            radial-gradient(circle at 0% 0%, rgba(229,9,20,0.18), transparent 24%),
-            radial-gradient(circle at 100% 0%, rgba(20,217,255,0.15), transparent 24%),
-            linear-gradient(135deg, rgba(13,18,32,0.98), rgba(8,13,23,0.96));
-        --shadow: 0 18px 38px rgba(0,0,0,0.34);
-        --shadow-2: 0 10px 24px rgba(0,0,0,0.30);
+        --primary: #2a9d8f;
+        --primary-hover: #23867a;
+        --primary-soft: #1f7f74;
+        --accent: #e9c46a;
+        --shadow: 0 16px 36px rgba(0,0,0,0.28);
+        --shadow-2: 0 10px 24px rgba(0,0,0,0.22);
     }
 
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
+        color: var(--text);
     }
 
     .stApp {
-        background:
-            radial-gradient(circle at 15% 0%, rgba(229,9,20,0.10), transparent 22%),
-            radial-gradient(circle at 90% 5%, rgba(20,217,255,0.08), transparent 20%),
-            linear-gradient(180deg, #03050a 0%, #08101d 46%, #091522 100%);
+        background-color: var(--bg);
         color: var(--text);
     }
 
     [data-testid="stHeader"] {
-        background: rgba(4, 7, 12, 0.6);
-        backdrop-filter: blur(14px);
+        background: rgba(8, 19, 31, 0.88);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, rgba(4,6,12,0.98), rgba(8,13,24,0.98));
+        background: var(--bg-soft);
         border-right: 1px solid rgba(255,255,255,0.05);
     }
 
     [data-testid="stSidebar"] * {
-        color: #eef3ff !important;
+        color: var(--text) !important;
     }
 
     .block-container {
@@ -67,13 +64,11 @@ def inject_css():
         font-size: 1.35rem;
         font-weight: 900;
         letter-spacing: -0.04em;
+        color: var(--text);
     }
 
     .brand-logo span {
-        background: var(--brand);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--primary);
     }
 
     .compact-note {
@@ -82,9 +77,9 @@ def inject_css():
     }
 
     .hero-v2 {
-        border-radius: 30px;
+        border-radius: 24px;
         padding: 1.35rem;
-        background: var(--hero-bg);
+        background-color: var(--bg-soft);
         border: 1px solid var(--line);
         box-shadow: var(--shadow);
         margin-bottom: 1.2rem;
@@ -101,25 +96,24 @@ def inject_css():
     .hero-pill {
         padding: 0.42rem 0.82rem;
         border-radius: 999px;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(42,157,143,0.12);
+        border: 1px solid rgba(42,157,143,0.24);
         font-size: 0.74rem;
         font-weight: 800;
+        color: #dff7f3;
     }
 
     .hero-title {
-        font-size: 3.3rem;
-        line-height: 0.98;
+        font-size: 3.2rem;
+        line-height: 1.02;
         font-weight: 900;
-        letter-spacing: -0.06em;
+        letter-spacing: -0.05em;
         margin-bottom: 0.75rem;
+        color: var(--text);
     }
 
     .hero-title .accent {
-        background: var(--brand);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--primary);
     }
 
     .hero-desc {
@@ -139,15 +133,16 @@ def inject_css():
     .meta-chip {
         padding: 0.46rem 0.78rem;
         border-radius: 999px;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.08);
         font-size: 0.84rem;
+        color: var(--text);
     }
 
     .hero-poster-box {
-        background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+        background-color: var(--card);
         border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 24px;
+        border-radius: 20px;
         padding: 0.85rem;
         box-shadow: var(--shadow-2);
         height: 100%;
@@ -158,6 +153,7 @@ def inject_css():
         font-weight: 800;
         margin: 1rem 0 0.25rem 0;
         letter-spacing: -0.02em;
+        color: var(--text);
     }
 
     .section-sub {
@@ -167,9 +163,9 @@ def inject_css():
     }
 
     .grid-card {
-        background: linear-gradient(180deg, rgba(13,18,31,0.96), rgba(8,12,22,0.96));
+        background-color: var(--card-2);
         border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 22px;
+        border-radius: 20px;
         padding: 0.9rem;
         box-shadow: var(--shadow-2);
         overflow: hidden;
@@ -181,6 +177,7 @@ def inject_css():
         font-weight: 800;
         margin-top: 0.1rem;
         line-height: 1.25;
+        color: var(--text);
     }
 
     .movie-sub {
@@ -191,7 +188,7 @@ def inject_css():
     }
 
     .mini-stat {
-        color: var(--gold) !important;
+        color: var(--accent) !important;
         font-weight: 700;
     }
 
@@ -199,23 +196,46 @@ def inject_css():
         display:inline-block;
         padding:0.36rem 0.7rem;
         border-radius:999px;
-        background:rgba(255,255,255,0.06);
+        background:rgba(255,255,255,0.05);
         border:1px solid rgba(255,255,255,0.08);
         font-size:0.78rem;
         margin-right:0.4rem;
         margin-bottom:0.4rem;
+        color:var(--text);
     }
 
     .stButton > button {
         width: 100%;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,0.08);
-        color: white;
+        border-radius: 12px;
+        border: 1px solid rgba(42,157,143,0.28);
+        color: #ffffff;
         font-weight: 800;
         padding: 0.74rem 0.95rem;
-        background: linear-gradient(90deg, #e50914, #00a8e1);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.24);
+        background-color: var(--primary);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.18);
         font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    .stButton > button:hover {
+        background-color: var(--primary-hover);
+        color: #ffffff;
+        border-color: rgba(42,157,143,0.40);
+    }
+
+    .stButton > button:focus {
+        color: #ffffff;
+        box-shadow: 0 0 0 0.18rem rgba(42,157,143,0.20);
+    }
+
+    input, textarea, .stTextInput input {
+        color: var(--text) !important;
+        background-color: #0e1d2c !important;
+    }
+
+    div[data-baseweb="select"] > div {
+        background-color: #0e1d2c !important;
+        color: var(--text) !important;
     }
 
     @media (max-width: 640px) {
@@ -225,10 +245,12 @@ def inject_css():
             gap: 0.35rem;
             padding: 0.7rem 0 1rem 0;
         }
+
         .block-container {
             padding-top: 1.6rem;
             padding-bottom: 1.5rem;
         }
+
         .hero-title {
             font-size: 2.1rem;
         }
@@ -241,13 +263,13 @@ def render_sidebar():
     with st.sidebar:
         st.markdown("""
         <div style="padding:0.35rem 0 0.9rem 0;">
-            <div style="font-size:1.2rem;font-weight:900;">🎬 OTT Stream Pro Max</div>
-            <div style="color:#98a8c7;margin-top:0.35rem;">
+            <div style="font-size:1.2rem;font-weight:900;color:#edf6f9;">🎬 OTT Stream Pro Max</div>
+            <div style="color:#a7bac7;margin-top:0.35rem;">
                 Premium movie discovery UI with mood-based recommendations
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.info("Home, Explore, AI Recommender, Watchlist and Trailer page ready.")
+        st.info("Simple rich colors updated.")
 
 
 def topbar():
@@ -270,7 +292,7 @@ def movie_card(title, genre, overview):
     <div class="grid-card">
         <div class="movie-title">{title}</div>
         <div class="movie-sub">{genre}</div>
-        <div style="color:#9aa8c3; font-size:0.9rem; line-height:1.6;">
+        <div style="color:#a7bac7; font-size:0.9rem; line-height:1.6;">
             {overview}
         </div>
     </div>
