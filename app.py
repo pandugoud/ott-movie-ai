@@ -20,10 +20,8 @@ st.markdown("""
 <div class="glass-card">
     <h3 style="margin-top:0;">Welcome</h3>
     <p class="small-note">
-        This is a production-ready Streamlit OTT movie platform starter with a premium
-        dark UI inspired by Netflix, Prime Video, and Hotstar.
-        Open the sidebar and navigate through Home, Explore, AI Recommender,
-        Watchlist, Analytics, and AI Assistant.
+        Ee version lo image place lo video play support undi.
+        Poster click cheste kuda trailer play avvachu, normal play button tho kuda open cheyyachu.
     </p>
 </div>
 """, unsafe_allow_html=True)
