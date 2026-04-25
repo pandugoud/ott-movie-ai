@@ -6,8 +6,6 @@ def initialize_session():
         "watchlist": [],
         "selected_movie": None,
         "featured_index": 0,
-        "now_playing": None,
-        "player_open": False
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -38,28 +36,3 @@ def next_feature(total):
 
 def prev_feature(total):
     st.session_state.featured_index = (st.session_state.featured_index - 1) % total
-
-
-def play_movie(movie):
-    st.session_state.now_playing = movie
-    st.session_state.player_open = True
-
-
-def stop_movie():
-    st.session_state.now_playing = None
-    st.session_state.player_open = False
-
-
-def is_playing(movie=None):
-    if not st.session_state.get("player_open", False):
-        return False
-
-    current = st.session_state.get("now_playing", None)
-
-    if movie is None:
-        return current is not None
-
-    if isinstance(movie, dict) and isinstance(current, dict):
-        return current.get("title") == movie.get("title")
-
-    return current == movie
