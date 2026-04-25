@@ -28,18 +28,17 @@ else:
             st.image(row["image"], width="stretch")
             st.markdown(f"""
                 <div class="movie-title">{row['title']}</div>
-                <div class="movie-sub">{row['genre']} • {row['language']} • ⭐ {row['rating']}</div>
-                <div style="color:#9aa8c3;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
+                <div class="movie-sub">{row['genre']} • {row['year']} • ⭐ {row['rating']}</div>
+                <div style="color:#a7bac7;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
             """, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
-            c1, c2 = st.columns(2)
-            with c1:
-                if st.button("🗑 Remove", key=f"remove_watch_{i}"):
-                    if remove_from_watchlist(row["title"]):
-                        st.success("Removed")
-                        st.rerun()
-            with c2:
-                if st.button("📺 Open", key=f"watch_open_{i}"):
+            a1, a2 = st.columns(2, gap="small")
+            with a1:
+                if st.button("🗑 Remove", key=f"remove_{i}", width="stretch"):
+                    remove_from_watchlist(row["title"])
+                    st.rerun()
+            with a2:
+                if st.button("📺 Open", key=f"watch_open_{i}", width="stretch"):
                     set_selected_movie(row.to_dict())
                     st.switch_page("pages/7_Trailer_Player.py")
