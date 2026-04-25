@@ -7,12 +7,17 @@ from sklearn.metrics.pairwise import cosine_similarity
 @st.cache_data
 def load_data():
     df = pd.read_csv("data/movies.csv")
-    for col in ["title", "overview", "genre", "image", "trailer"]:
+
+    required_cols = [
+        "title", "overview", "genre", "image", "trailer",
+        "year", "duration", "language", "rating"
+    ]
+    for col in required_cols:
         if col not in df.columns:
             df[col] = ""
         df[col] = df[col].fillna("").astype(str)
 
-    df["content"] = df["overview"] + " " + df["genre"]
+    df["content"] = df["overview"] + " " + df["genre"] + " " + df["language"]
     return df
 
 
@@ -34,9 +39,9 @@ def get_recommendations(title, top_n=6):
 
     idx = df.index[df["title"] == title][0]
     scores = list(enumerate(similarity[idx]))
-    scores = sorted(scores, key=lambda x: x[1], reverse=True)[1 : top_n + 1]
-    movie_indices = [i[0] for i in scores]
-    return df.iloc[movie_indices].copy()
+    scores = sorted(scores, key=lambda x: x[1], reverse=True)[1:top_n+1]
+    indices = [i[0] for i in scores]
+    return df.iloc[indices].copy()
 
 
 def search_movies(query):
@@ -44,13 +49,13 @@ def search_movies(query):
     if not query:
         return df
 
-    query = str(query).strip()
-    filtered = df[
-        df["title"].str.contains(query, case=False, na=False)
-        | df["genre"].str.contains(query, case=False, na=False)
-        | df["overview"].str.contains(query, case=False, na=False)
+    q = str(query).strip()
+    return df[
+        df["title"].str.contains(q, case=False, na=False)
+        | df["genre"].str.contains(q, case=False, na=False)
+        | df["overview"].str.contains(q, case=False, na=False)
+        | df["language"].str.contains(q, case=False, na=False)
     ]
-    return filtered
 
 
 def get_genre_counts():
