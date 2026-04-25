@@ -20,83 +20,47 @@ movie = st.session_state.selected_movie
 
 section_header("Now Streaming", "Full OTT-style detail layout with trailer, metadata, and recommendations")
 
-left, right = st.columns([1.55, 0.9])
+left, right = st.columns([1.55, 0.9], gap="large")
 
 with left:
     st.video(movie["trailer"], autoplay=True, muted=True)
 
 with right:
-    st.markdown('<div class="detail-card">', unsafe_allow_html=True)
-    st.image(movie["image"], use_container_width=True)
+    st.image(movie["image"], width="stretch")
     st.markdown(f"## {movie['title']}")
-    st.markdown(f"""
-    <div class="metric-chip-grid">
-        <div class="metric-chip">
-            <div class="label">Rating</div>
-            <div class="value">⭐ {movie['rating']}</div>
-        </div>
-        <div class="metric-chip">
-            <div class="label">Genre</div>
-            <div class="value">{movie['genre']}</div>
-        </div>
-        <div class="metric-chip">
-            <div class="label">Year</div>
-            <div class="value">{movie['year']}</div>
-        </div>
-        <div class="metric-chip">
-            <div class="label">Duration</div>
-            <div class="value">{movie['duration']}</div>
-        </div>
-        <div class="metric-chip">
-            <div class="label">Language</div>
-            <div class="value">{movie['language']}</div>
-        </div>
-        <div class="metric-chip">
-            <div class="label">Experience</div>
-            <div class="value">Cinematic</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown(f"""
-    <div class="overview-box">
-        <div style="font-size:0.92rem;color:#98a8c7;margin-bottom:0.35rem;">Overview</div>
-        <div>{movie['overview']}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<div style='height:0.9rem'></div>", unsafe_allow_html=True)
+    st.markdown(f"**Genre:** {movie['genre']}")
+    st.markdown(f"**Year:** {movie['year']}")
+    st.markdown(f"**Duration:** {movie['duration']}")
+    st.markdown(f"**Language:** {movie['language']}")
+    st.markdown(f"**Rating:** ⭐ {movie['rating']}")
+    st.write(movie["overview"])
 
     if st.button("❤️ Add to Watchlist", key="player_watch"):
         if add_to_watchlist(movie["title"]):
             st.success(f"{movie['title']} added to watchlist")
         else:
-            st.info(f"{movie['title']} already in watchlist")
+            st.info("Already in watchlist")
 
     if st.button("⬅ Back to Home", key="player_back"):
         st.switch_page("pages/1_Home.py")
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
-section_header("More Like This", "Recommendation rail from the same content profile")
+section_header("More Like This", "Recommendation rail")
 recs = get_recommendations(movie["title"])
 
 if recs.empty:
     st.info("No recommendations found.")
 else:
-    rec_cols = st.columns(3)
+    rec_cols = st.columns(3, gap="large")
     for i, (_, row) in enumerate(recs.iterrows()):
         with rec_cols[i % 3]:
-            st.markdown('<div class="poster-card">', unsafe_allow_html=True)
-            st.image(row["image"], use_container_width=True)
+            st.markdown('<div class="grid-card">', unsafe_allow_html=True)
+            st.image(row["image"], width="stretch")
             st.markdown(f"""
-            <div class="poster-meta">
-                <div class="poster-title">{row['title']}</div>
-                <div class="poster-sub">{row['genre']} • {row['year']} • ⭐ {row['rating']}</div>
-            </div>
+                <div class="movie-title">{row['title']}</div>
+                <div class="movie-sub">{row['genre']} • {row['year']} • <span class="mini-stat">⭐ {row['rating']}</span></div>
             """, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
-            if st.button(f"Open {row['title']}", key=f"open_rec_{i}"):
+            if st.button(f"Open {row['title']}", key=f"rec_{i}"):
                 set_selected_movie(row.to_dict())
                 st.rerun()
