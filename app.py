@@ -18,7 +18,8 @@ st.markdown("""
 <div style="padding:1rem;border:1px solid rgba(255,255,255,0.08);border-radius:20px;background:rgba(255,255,255,0.03);">
     <h2 style="margin-top:0;">Welcome</h2>
     <p style="color:#9aa8c3;">
-        Sidebar nundi Home page open cheyyandi. Akkada premium hero, trailer popup, and full OTT detail page untayi.
+        Sidebar nundi Home, Explore, AI Recommender, Watchlist pages open cheyyandi.
+        AI Recommender lo mood batti kuda movie suggestions vasthayi.
     </p>
 </div>
 """, unsafe_allow_html=True)
