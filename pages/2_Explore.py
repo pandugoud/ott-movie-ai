@@ -1,49 +1,47 @@
 import streamlit as st
 from src.recommender import search_movies, load_data
-from src.ui import inject_css, render_sidebar, section_header, movie_card
-from src.utils import initialize_session, play_movie, stop_movie, is_playing, add_to_watchlist
+from src.ui import inject_css, render_sidebar, topbar, section_header
+from src.utils import initialize_session, add_to_watchlist, set_selected_movie
 
 st.set_page_config(page_title="Explore | OTT Stream Pro Max", page_icon="🔎", layout="wide")
 
 initialize_session()
 inject_css()
 render_sidebar()
-
-st.title("🔎 Explore Movies")
+topbar()
 
 df = load_data()
-genres = ["All"] + sorted(df["genre"].unique().tolist())
-query = st.text_input("Search movie, genre, or overview")
-selected_genre = st.selectbox("Genre Filter", genres)
 
-filtered = search_movies(query)
-if selected_genre != "All":
-    filtered = filtered[filtered["genre"] == selected_genre]
+section_header("Explore Movies", "Search by title, genre, language, year or overview")
+query = st.text_input("Search movies", placeholder="Search Inception, Action, Telugu, 2022...")
 
-section_header(f"Results ({len(filtered)})")
+results = search_movies(query)
 
-if filtered.empty:
-    st.warning("No movies found.")
+if query.strip():
+    st.write(f"Results found: {len(results)}")
 else:
-    cols = st.columns(3)
-    for i, (_, row) in enumerate(filtered.iterrows()):
-        with cols[i % 3]:
-            if is_playing(row["title"]):
-                st.video(row["trailer"], autoplay=True, muted=True)
-                if st.button(f"❌ Close {row['title']}", key=f"close_explore_{i}"):
-                    stop_movie()
-                    st.rerun()
-            else:
-                st.image(row["image"], use_container_width=True)
-                movie_card(row["title"], row["genre"], row["overview"])
+    st.write(f"Showing all movies: {len(results)}")
 
-                if st.button(f"▶ Play Trailer {row['title']}", key=f"play_explore_{i}"):
-                    play_movie(row["title"])
-                    st.rerun()
+cols = st.columns(4, gap="large")
+for i, (_, row) in enumerate(results.iterrows()):
+    with cols[i % 4]:
+        st.markdown('<div class="grid-card">', unsafe_allow_html=True)
+        st.image(row["image"], width="stretch")
+        st.markdown(f"""
+            <div class="movie-title">{row['title']}</div>
+            <div class="movie-sub">{row['genre']} • {row['language']} • ⭐ {row['rating']}</div>
+            <div style="color:#9aa8c3;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
+        """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-                if st.button(f"❤️ Watchlist {row['title']}", key=f"watch_explore_{i}"):
-                    added = add_to_watchlist(row["title"])
-                    if added:
-                        st.success(f"{row['title']} added")
-                    else:
-                        st.info("Already exists")
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("❤️ Watchlist", key=f"explore_watch_{i}"):
+                if add_to_watchlist(row["title"]):
+                    st.success("Added")
+                else:
+                    st.info("Already added")
+        with c2:
+            if st.button("📺 Open", key=f"explore_open_{i}"):
+                set_selected_movie(row.to_dict())
+                st.switch_page("pages/7_Trailer_Player.py")
