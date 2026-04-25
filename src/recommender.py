@@ -79,8 +79,8 @@ def get_recommendations(title, top_n=6):
 
 def get_movie_by_title(title):
     df = load_data()
-
     matched = df[df["title"] == title]
+
     if matched.empty:
         return None
 
@@ -90,3 +90,40 @@ def get_movie_by_title(title):
 def get_genre_counts():
     df = load_data()
     return df["genre"].value_counts()
+
+
+def get_mood_mapping():
+    return {
+        "😊 Happy": ["Comedy", "Romance", "Animation", "Fantasy", "Music", "Family"],
+        "😌 Relaxed": ["Drama", "Romance", "Family", "Fantasy"],
+        "🔥 Excited": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+        "🤯 Mind-Bending": ["Sci-Fi", "Mystery", "Thriller"],
+        "😢 Emotional": ["Drama", "Romance"],
+        "😎 Mass / Hero Vibe": ["Action", "Adventure"],
+        "🌌 Escapist": ["Fantasy", "Sci-Fi", "Adventure"],
+        "🇮🇳 Telugu Vibe": ["Action", "Drama"]
+    }
+
+
+def get_mood_recommendations(mood, top_n=8):
+    df = load_data()
+    mood_map = get_mood_mapping()
+
+    if mood not in mood_map:
+        return df.head(top_n).copy()
+
+    target_genres = mood_map[mood]
+
+    filtered = df[
+        df["genre"].apply(
+            lambda x: any(g.lower() in str(x).lower() for g in target_genres)
+        )
+    ].copy()
+
+    if filtered.empty:
+        return df.head(top_n).copy()
+
+    filtered["rating_num"] = pd.to_numeric(filtered["rating"], errors="coerce").fillna(0)
+    filtered = filtered.sort_values(by="rating_num", ascending=False)
+
+    return filtered.head(top_n).copy()
