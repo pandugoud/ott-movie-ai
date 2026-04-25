@@ -25,13 +25,11 @@ st.markdown("""
     <div class="hero-title">
         Find movies by your <span class="accent">mood</span>
     </div>
-    <div class="hero-desc">
-        Happy ga unnava, mass vibe kavala, emotional cinema kavala annadi select chesi direct recommendations pondandi.
-    </div>
+    
 </div>
 """, unsafe_allow_html=True)
 
-section_header("Mood Based Recommendations", "Mee mood batti movies ikkade chupisthayi")
+section_header("Mood Based Recommendations")
 
 left, right = st.columns(2, gap="large")
 with left:
