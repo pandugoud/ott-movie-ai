@@ -45,7 +45,7 @@ def search_movies(query):
     df = load_data()
 
     if not query or str(query).strip() == "":
-        return df
+        return df.copy()
 
     q = str(query).strip()
 
@@ -89,6 +89,17 @@ def get_movie_by_title(title):
 def get_genre_counts():
     df = load_data()
     return df["genre"].value_counts()
+
+
+def get_language_counts():
+    df = load_data()
+    return df["language"].value_counts()
+
+
+def get_top_rated(top_n=5):
+    df = load_data().copy()
+    df["rating_num"] = pd.to_numeric(df["rating"], errors="coerce").fillna(0)
+    return df.sort_values(by="rating_num", ascending=False).head(top_n)
 
 
 def get_mood_mapping():
