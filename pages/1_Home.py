@@ -1,19 +1,9 @@
 import streamlit as st
 from src.recommender import load_data
-from src.ui import inject_css, render_sidebar, topbar, section_header, stat_card
-from src.utils import (
-    initialize_session,
-    add_to_watchlist,
-    set_selected_movie,
-    next_feature,
-    prev_feature
-)
+from src.ui import inject_css, render_sidebar, topbar, section_header, stat_card, poster_image
+from src.utils import initialize_session, add_to_watchlist, set_selected_movie, next_feature, prev_feature
 
-st.set_page_config(
-    page_title="Home | OTT Stream Pro Max",
-    page_icon="🏠",
-    layout="wide"
-)
+st.set_page_config(page_title="Home | OTT Stream Pro Max", page_icon="🏠", layout="wide")
 
 initialize_session()
 inject_css()
@@ -31,14 +21,13 @@ with hero_left:
         <div class="hero-pills">
             <span class="hero-pill">FEATURED TODAY</span>
             <span class="hero-pill">PREMIUM UI</span>
-            <span class="hero-pill">MOOD AI</span>
+            <span class="hero-pill">SMART DISCOVERY</span>
         </div>
         <div class="hero-title">
-            Discover your next <span class="accent">favorite movie</span> in seconds
+            Discover your next <span class="accent">favorite movie</span>
         </div>
         <div class="hero-desc">
-            Browse a premium OTT-inspired movie experience with quick discovery, mood-based recommendations,
-            smart similarity suggestions, trailer previews, and watchlist support.
+            Browse featured cinema, open detail pages, save titles to watchlist, and move through the app with a richer OTT-style interface.
         </div>
         <div class="hero-meta">
             <span class="meta-chip">⭐ {featured['rating']}</span>
@@ -72,19 +61,15 @@ with hero_left:
 
 with hero_right:
     st.markdown('<div class="hero-poster-box">', unsafe_allow_html=True)
-    st.markdown('<div class="poster-frame">', unsafe_allow_html=True)
-    st.image(featured["image"], width="stretch")
-    st.markdown('</div>', unsafe_allow_html=True)
+    poster_image(featured["image"], large=True)
     st.markdown(f"""
         <div class="movie-title" style="font-size:1.18rem; margin-top:0.9rem;">{featured['title']}</div>
         <div class="movie-sub">{featured['genre']} • {featured['year']} • <span class="mini-stat">⭐ {featured['rating']}</span></div>
-        <div style="color:#94a3b8; line-height:1.8; font-size:0.93rem;">
-            {featured['overview']}
-        </div>
+        <div style="color:#91a4b7; line-height:1.8; font-size:0.93rem;">{featured['overview']}</div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-section_header("Platform Snapshot", "Quick highlights from your app")
+section_header("Platform Snapshot", "Quick highlights")
 s1, s2, s3, s4 = st.columns(4, gap="large")
 with s1:
     stat_card("Total Movies", len(df))
@@ -97,15 +82,12 @@ with s4:
 
 st.markdown('<div class="glass-divider"></div>', unsafe_allow_html=True)
 
-section_header("Trending Now", "Quick access to popular picks")
-
+section_header("Trending Now", "Quick access picks")
 trend_cols = st.columns(5, gap="medium")
 for i, (_, row) in enumerate(df.head(5).iterrows()):
     with trend_cols[i]:
         st.markdown('<div class="grid-card">', unsafe_allow_html=True)
-        st.markdown('<div class="poster-frame">', unsafe_allow_html=True)
-        st.image(row["image"], width="stretch")
-        st.markdown('</div>', unsafe_allow_html=True)
+        poster_image(row["image"])
         st.markdown(f"""
             <div class="movie-title">{row['title']}</div>
             <div class="movie-sub">{row['genre']} • {row['year']}</div>
@@ -119,21 +101,16 @@ for i, (_, row) in enumerate(df.head(5).iterrows()):
 st.markdown('<div class="glass-divider"></div>', unsafe_allow_html=True)
 
 section_header("Top Picks For You", "Beautiful cards with fast actions")
-
 cards = st.columns(4, gap="large")
 for i in range(min(8, len(df))):
     row = df.iloc[i]
     with cards[i % 4]:
         st.markdown('<div class="grid-card">', unsafe_allow_html=True)
-        st.markdown('<div class="poster-frame">', unsafe_allow_html=True)
-        st.image(row["image"], width="stretch")
-        st.markdown('</div>', unsafe_allow_html=True)
+        poster_image(row["image"])
         st.markdown(f"""
             <div class="movie-title">{row['title']}</div>
             <div class="movie-sub">{row['genre']} • {row['language']} • <span class="mini-stat">⭐ {row['rating']}</span></div>
-            <div style="color:#94a3b8; font-size:0.88rem; line-height:1.75;">
-                {row['overview']}
-            </div>
+            <div style="color:#91a4b7; font-size:0.88rem; line-height:1.75;">{row['overview']}</div>
         """, unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -152,7 +129,7 @@ for i in range(min(8, len(df))):
 st.markdown('<div class="glass-divider"></div>', unsafe_allow_html=True)
 
 section_header("Explore More", "Open other sections of the app")
-n1, n2, n3, n4 = st.columns(4, gap="small")
+n1, n2, n3, n4, n5 = st.columns(5, gap="small")
 with n1:
     if st.button("🔎 Explore", key="home_nav_explore", width="stretch"):
         st.switch_page("pages/2_Explore.py")
@@ -163,5 +140,8 @@ with n3:
     if st.button("❤️ Watchlist", key="home_nav_watchlist", width="stretch"):
         st.switch_page("pages/5_Watchlist.py")
 with n4:
+    if st.button("📊 Analytics", key="home_nav_analytics", width="stretch"):
+        st.switch_page("pages/6_Analytics.py")
+with n5:
     if st.button("ℹ️ About Us", key="home_nav_about", width="stretch"):
         st.switch_page("pages/4_About_Us.py")
