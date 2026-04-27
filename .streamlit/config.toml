@@ -1,10 +1,10 @@
 [theme]
 base="dark"
-primaryColor="#2a9d8f"
-backgroundColor="#08131f"
-secondaryBackgroundColor="#10202f"
-textColor="#edf6f9"
+primaryColor="#14b8a6"
+backgroundColor="#07111b"
+secondaryBackgroundColor="#0d1b2a"
+textColor="#edf2f7"
 font="sans serif"
 baseRadius="large"
-borderColor="#213547"
+borderColor="#1e293b"
 showWidgetBorder=true
