@@ -46,7 +46,7 @@ def inject_css():
     }
 
     [data-testid="stToolbar"] {
-        top: 5.15rem;
+        top: 0.15rem;
         right: 0.6rem;
     }
 
