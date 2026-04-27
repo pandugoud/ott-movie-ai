@@ -22,6 +22,7 @@ def inject_css():
         --shadow-sm: 0 10px 24px rgba(0,0,0,0.18);
         --shadow-md: 0 20px 48px rgba(0,0,0,0.28);
         --shadow-lg: 0 28px 80px rgba(0,0,0,0.36);
+         --top-safe-space: 4.8rem;
     }
 
     html, body, [class*="css"] {
