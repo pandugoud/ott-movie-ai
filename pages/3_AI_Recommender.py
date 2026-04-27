@@ -1,6 +1,6 @@
 import streamlit as st
 from src.recommender import load_data, get_recommendations, get_mood_recommendations, get_mood_mapping
-from src.ui import inject_css, render_sidebar, topbar, section_header
+from src.ui import inject_css, render_sidebar, topbar, section_header, poster_image
 from src.utils import initialize_session, add_to_watchlist, set_selected_movie
 
 st.set_page_config(page_title="AI Recommender | OTT Stream Pro Max", page_icon="🤖", layout="wide")
@@ -15,21 +15,23 @@ df = load_data()
 st.markdown("""
 <div class="hero-v2">
     <div class="hero-pills">
+        <span class="hero-pill">AI RECOMMENDER</span>
         <span class="hero-pill">MOOD AI</span>
-        <span class="hero-pill">SMART DISCOVERY</span>
-        <span class="hero-pill">OTT STYLE</span>
+        <span class="hero-pill">SIMILARITY ENGINE</span>
     </div>
     <div class="hero-title">
-        Pick your <span class="accent">mood</span> and discover your next movie
+        Find smarter picks with <span class="accent">AI-style recommendations</span>
     </div>
+    <div class="hero-desc">
+        Choose by mood or start from a movie you already love and discover related titles quickly.
     </div>
+</div>
 """, unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(["😊 Mood Based", "🎬 Title Based"])
 
 with tab1:
-    section_header("Mood Matcher")
-
+    section_header("Mood Matcher", "Select your vibe")
     col1, col2 = st.columns(2, gap="large")
     with col1:
         moods = list(get_mood_mapping().keys())
@@ -43,11 +45,11 @@ with tab1:
     for i, (_, row) in enumerate(mood_recs.iterrows()):
         with cols[i % 4]:
             st.markdown('<div class="grid-card">', unsafe_allow_html=True)
-            st.image(row["image"], width="stretch")
+            poster_image(row["image"])
             st.markdown(f"""
                 <div class="movie-title">{row['title']}</div>
                 <div class="movie-sub">{row['genre']} • {row['year']} • ⭐ {row['rating']}</div>
-                <div style="color:#a7bac7;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
+                <div style="color:#91a4b7;font-size:0.88rem;line-height:1.72;">{row['overview']}</div>
             """, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -64,8 +66,7 @@ with tab1:
                     st.switch_page("pages/7_Trailer_Player.py")
 
 with tab2:
-    section_header("Movie Similarity")
-
+    section_header("Movie Similarity", "Choose a favorite title")
     t1, t2 = st.columns(2, gap="large")
     with t1:
         selected_title = st.selectbox("Choose a movie", df["title"].tolist())
@@ -82,11 +83,11 @@ with tab2:
             for i, (_, row) in enumerate(recs.iterrows()):
                 with cols[i % 3]:
                     st.markdown('<div class="grid-card">', unsafe_allow_html=True)
-                    st.image(row["image"], width="stretch")
+                    poster_image(row["image"])
                     st.markdown(f"""
                         <div class="movie-title">{row['title']}</div>
                         <div class="movie-sub">{row['genre']} • {row['year']} • ⭐ {row['rating']}</div>
-                        <div style="color:#a7bac7;font-size:0.88rem;line-height:1.6;">{row['overview']}</div>
+                        <div style="color:#91a4b7;font-size:0.88rem;line-height:1.72;">{row['overview']}</div>
                     """, unsafe_allow_html=True)
                     st.markdown('</div>', unsafe_allow_html=True)
 
